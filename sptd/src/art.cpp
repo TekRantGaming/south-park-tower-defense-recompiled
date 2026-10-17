@@ -58,6 +58,17 @@ std::filesystem::path AchievementUnlockPath(const std::filesystem::path& user_da
   return user_data_root / "achievements" / name;
 }
 
+bool IsMostlyDark(const rex::ui::RawImage& image) {
+  if (!image.width || !image.height || image.data.empty()) return true;
+  // Average of a sparse sample of the RGB channels.
+  uint64_t sum = 0, count = 0;
+  for (size_t i = 0; i + 3 < image.data.size(); i += 4 * 97) {
+    sum += image.data[i] + image.data[i + 1] + image.data[i + 2];
+    count += 3;
+  }
+  return count == 0 || sum / count < 16;
+}
+
 bool SaveTitleCapture(const rex::ui::RawImage& image, const std::filesystem::path& path) {
   if (!image.width || !image.height || image.data.empty()) return false;
   std::error_code ec;

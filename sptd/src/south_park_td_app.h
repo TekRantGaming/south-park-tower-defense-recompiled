@@ -249,12 +249,23 @@ class SouthParkTdApp : public rex::ReXApp {
     const auto path = sptd::art::TitleCapturePath(user_data_root_);
     std::error_code ec;
     if (std::filesystem::exists(path, ec)) return;
-    sptd::RunAfterFirstFrame(kTitleCaptureDelay, [this, path] {
-      app_context().CallInUIThread([this, path] {
+    TryTitleCapture(path, kTitleCaptureDelay, kTitleCaptureTries);
+  }
+
+  // The game sits on a black screen for its first ~30 s (it waits for an intro
+  // movie its package doesn't have), so a dark frame means "not yet": try again.
+  void TryTitleCapture(std::filesystem::path path, double delay, int tries_left) {
+    sptd::RunAfterDelay(delay, [this, path, tries_left] {
+      app_context().CallInUIThread([this, path, tries_left] {
         rex::ui::RawImage image;
         auto* gfx = runtime() ? runtime()->graphics_system() : nullptr;
         auto* presenter = gfx ? gfx->presenter() : nullptr;
-        if (presenter && presenter->CaptureGuestOutput(image) && sptd::art::SaveTitleCapture(image, path))
+        if (!presenter || !presenter->CaptureGuestOutput(image)) return;
+        if (sptd::art::IsMostlyDark(image)) {
+          if (tries_left > 1) TryTitleCapture(path, kTitleCaptureRetry, tries_left - 1);
+          return;
+        }
+        if (sptd::art::SaveTitleCapture(image, path))
           REXLOG_INFO("SPTD: saved launcher art {}x{}", image.width, image.height);
       });
     });
@@ -271,7 +282,9 @@ class SouthParkTdApp : public rex::ReXApp {
   }
 
   // Seconds after the first frame when the title screen is showing.
-  static constexpr double kTitleCaptureDelay = 20.0;
+  static constexpr double kTitleCaptureDelay = 32.0;
+  static constexpr double kTitleCaptureRetry = 3.0;
+  static constexpr int kTitleCaptureTries = 10;
 
   std::filesystem::path user_data_root_;
   sptd::AchievementToast* toast_ = nullptr;  // owned by ReXApp

@@ -69,9 +69,11 @@ Controller remapping hooks `sub_82448838` (the title's `XInputGetState` stub: a 
 
 ## Not done yet / known issues
 
-- Gameplay has had only short tests: menus, game-mode selection, the level 1 tutorial loading and the scrapbook.
-  A full level, saving and reloading, and the other modes need a play-through.
-- The intro movie path `Media\Assets\Movies\en-en\sp_xbox_0_intro.wmv` does not exist in the package (the movies
-  are in `Movies\` without a language folder); the game skips it. Whether in-level `.wmv` movies play is untested.
+- Gameplay has had short tests: menus, game modes, the opening movie and the first waves of the school-yard
+  level. A full play-through, saving and reloading, and the other modes still need testing.
+- The game also asks for `Media\Assets\Movies\en-en\sp_xbox_0_intro.wmv`, which the package doesn't have, and
+  `Frontend\Graphics\en-en\*.png`; it carries on without them (the opening movie still plays).
+- The launcher's title-screen art is taken from the first non-dark frame from 32 s after the first frame (the
+  game shows black for ~30 s at start); the first version captured a black frame at 20 s.
 - On the game-mode screen, the locked "HARD" entry draws with garbled letters; not yet checked against a console.
 - Online play (Xbox LIVE game mode) is not supported.

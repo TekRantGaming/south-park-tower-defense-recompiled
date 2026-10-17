@@ -35,6 +35,8 @@ std::filesystem::path AchievementCachePath(const std::filesystem::path& user_dat
 std::filesystem::path AchievementUnlockPath(const std::filesystem::path& user_data_root);
 
 bool SaveTitleCapture(const rex::ui::RawImage& image, const std::filesystem::path& path);
+// True for a (nearly) black frame, which makes poor launcher art.
+bool IsMostlyDark(const rex::ui::RawImage& image);
 Image LoadImage(const std::filesystem::path& path);  // .bmp (ours) or .png
 
 void WriteAchievementCache(const std::vector<rex::system::AchievementInfo>& achievements,
