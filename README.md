@@ -31,7 +31,7 @@
 
 | | | |
 | :--- | :--- | :--- |
-| 🖥️ **Native Windows and Linux** builds, no emulator | 🎮 **Any controller**, or the keyboard with your own bindings | 🧩 **Fixes a title-screen crash** with a controller connected |
+| 🖥️ **Native Windows and Linux** builds, no emulator | 🎮 **Any controller**, or the keyboard with your own bindings | 🗂️ **Saves and settings** one click away in the launcher |
 | ✨ **Up to 8K**, FXAA, MSAA and 16x texture filtering | ⏱️ **The console's 60 FPS**, paced exactly like the Xbox 360 | 🔁 **Remap any button**, deadzone, vibration strength |
 | 🏆 **Achievements** with Xbox 360-style pop-ups | 📦 **Install from your own package** in a few clicks | 🔄 **Updates itself** from this page |
 | 🐧 **Linux and Steam Deck** as a single AppImage | 🌍 **Six languages**: English, French, German, Spanish, Italian, Japanese | 🪟 **Windowed or fullscreen**, any monitor, F11 to switch |
