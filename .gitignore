@@ -1,0 +1,20 @@
+# --- Copyrighted game data: never commit ---
+/game/
+/sptd/assets
+/sptd/image.bin
+*.xex
+*.xwb
+*.xsb
+*.wmv
+# Recompiled C++ is derived from the game's code; regenerate with setup.ps1
+/sptd/generated/default/
+
+# --- Downloaded / build output ---
+/tools/rexglue/
+/sptd/out/
+/shots/
+/dist/
+/refs/
+
+# --- Logs & scratch ---
+*.log
